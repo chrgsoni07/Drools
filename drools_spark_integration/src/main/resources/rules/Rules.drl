@@ -1,0 +1,64 @@
+package com.java
+
+import drools_spark_integration.AuctionPOJO;
+
+rule "bidder rate less then 10"
+	dialect "mvel"
+	when
+		auction : AuctionPOJO( bidderRate <= 10.0 )
+	then
+		auction.setBidderCategory( "Starter" );
+end
+
+
+rule "bidder rate Greater then 10 less then 100"
+	dialect "mvel"
+	when
+		auction : AuctionPOJO( bidderRate > 10.0 , bidderRate <= 100.0 )
+	then
+		auction.setBidderCategory( "Intermediate" );
+end
+
+
+rule "bidder rate Greater than 100"
+	dialect "mvel"
+	when
+		auction : AuctionPOJO( bidderRate > 100.0 )
+	then
+		auction.setBidderCategory( "Professional" );
+end
+
+//Rules Based on bid amount to decide auctioneer commission
+
+rule "Bid amount Less then or equal to 10"
+	dialect "mvel"
+	when
+		auction : AuctionPOJO( bid <= 10.0 )
+	then
+		auction.setAuctioneerCommission( 0.1 );
+end
+
+rule "Bid amount between 10 to 50"
+	dialect "mvel"
+	when
+		auction : AuctionPOJO( bid >= 11.0 , bid <= 50.0 )
+	then
+		auction.setAuctioneerCommission( 0.15 );
+end
+
+
+rule "Bid amount between 50 to 100"
+	dialect "mvel"
+	when
+		auction : AuctionPOJO( bid >= 51.0 , bid <= 100.0 )
+	then
+		auction.setAuctioneerCommission( 0.2 );
+end
+
+rule "Bid amount greater then 100"
+	dialect "mvel"
+	when
+		auction : AuctionPOJO( bid >= 101.0 )
+	then
+		auction.setAuctioneerCommission( 0.25 );
+end
