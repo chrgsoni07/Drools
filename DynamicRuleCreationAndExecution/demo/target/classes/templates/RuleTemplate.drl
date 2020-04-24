@@ -1,0 +1,26 @@
+template header
+
+name
+condition
+action
+
+package templates;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Date;
+import java.util.Collections;
+import com.sample.model.InputPojo;
+
+dialect "java"
+
+template "RuleTemplate"
+
+rule "@{name}"
+when
+ 	@{condition}
+then
+	@{action}
+	System.out.println("Rule execution");
+end
+end template

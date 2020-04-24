@@ -1,0 +1,55 @@
+package com.sample
+ 
+import java.util.Map;
+import java.util.HashMap;
+import com.sample.model.InputPojo;
+import java.util.Date;
+import static com.sample.util.Util.isDateAfter;
+import java.util.Collections;
+ 
+
+rule "First Rule"
+	when
+		$inputPojo : InputPojo ($stringColumns : stringColumns, $numberColumns : numberColumns)
+	
+		//null value check 	
+		eval( $stringColumns.get("Owner") != null && $stringColumns.get("Type") != null 
+		&& $numberColumns.get("Capacity") != null && $numberColumns.get("Timezone") != null )
+		
+		eval(
+				( $stringColumns.get("Owner") == "Bruno Booth" 
+				&& $stringColumns.get("Type") == "Italian" )
+				
+		|| 		
+				(((int)$numberColumns.get("Capacity") > 10 )  
+				&& ((int) $numberColumns.get("Timezone") == 100 ))
+		)
+	then
+		Map<String, String> output =  new HashMap<String, String>();
+		output.put("Region","Region-77");
+		output.put("isUpdated","Yes");
+		output.put("State","CA");
+		
+		$inputPojo.setOutputMap(output);
+end
+
+
+rule "Second Rule"
+	when
+		$inputPojo : InputPojo ($stringColumns : stringColumns, $dateColumns : dateColumns)
+
+		//null value check 	
+		eval($stringColumns.get("Type") != null && $dateColumns.get("Createdate") != null)
+		
+		eval(
+				($stringColumns.get("Type") == "Italian")
+			||
+				(isDateAfter($dateColumns.get("Createdate"), "03/31/2020"))
+			)
+	then
+		Map<String, String> output = new HashMap<String, String>();
+		output.put("Owner","Raj Singh");
+		output.put("isUpdated","Yes");
+		
+		$inputPojo.setOutputMap(output);
+end
