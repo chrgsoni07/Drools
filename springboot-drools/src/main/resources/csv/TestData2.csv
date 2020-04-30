@@ -1,0 +1,2 @@
+Region-String,Group-String,RestaurantID-Integer,RestaurantName-String,City-String,Zip-Integer,State-String,Latitude-Double,Longitude-Double,Timezone-Integer,DaylightSavings-Integer,GeoPoint-String,UseRow-String,Owner-String,Capacity-Integer,Type-String,PicturePath-String,Createdate-String,IsActive-String,IsUpdated-String
+Region-0,Group-1,1,WENDY'S,Worthington,1098,MA,42.399054,-72.93871,100,1,"42.399054,-72.93871",Yes,Bruno Booth,19,Italian,c:\owner\,3/31/2020,TRUE,
